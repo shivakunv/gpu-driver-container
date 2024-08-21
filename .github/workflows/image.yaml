@@ -27,6 +27,8 @@ on:
   #     - main
   repository_dispatch:
     types: [trigger_ci]
+    branches:
+      - main
 
 permissions:
   contents: write

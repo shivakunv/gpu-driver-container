@@ -23,7 +23,9 @@ on:
   #     - main
   repository_dispatch:
     types: [trigger_ci]
-    
+    branches:
+      - main
+
 jobs:
   e2e-tests-nvidiadriver:
     runs-on: ubuntu-latest
