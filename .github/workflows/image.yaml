@@ -15,11 +15,6 @@
 # Run this workflow on pull requests or merge to main/release branches
 name: image
 
-permissions:
-  contents: write
-  packages: write
-  actions: write
-
 on:
   pull_request:
     types:
@@ -31,6 +26,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  packages: write
+  actions: write
+  
 jobs:
   image:
     runs-on: ubuntu-latest
