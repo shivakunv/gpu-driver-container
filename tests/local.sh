@@ -12,6 +12,10 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/scripts && pwd )"
 source ${SCRIPT_DIR}/.definitions.sh
 source ${SCRIPT_DIR}/.local.sh
 
+if [ "${SSH_RETRY}" == "1" ]; then
+    remote_retry
+fi
+
 # Sync the project folder to the remote
 ${SCRIPT_DIR}/push.sh
 

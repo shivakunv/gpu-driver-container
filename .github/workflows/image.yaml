@@ -22,11 +22,9 @@ on:
       - synchronize
     branches:
       - main
-      - release-*
   push:
     branches:
       - main
-      - release-*
 
 jobs:
   image:
@@ -93,7 +91,9 @@ jobs:
           IMAGE_NAME: ghcr.io/nvidia/driver
           VERSION: ${COMMIT_SHORT_SHA}
         run: |
+          # SHIVA
           DRIVER_VERSIONS=${{ matrix.driver }} make build-${{ matrix.dist }}-${{ matrix.driver }}
+          echo "SHIVA"
 
   pre-compiled:
     runs-on: ubuntu-latest
@@ -158,6 +158,7 @@ jobs:
           VERSION: ${COMMIT_SHORT_SHA}
           BASE_TARGET: jammy
         run: |
+          # SHIVA
           make DRIVER_BRANCH=${{ matrix.driver }} KERNEL_FLAVOR=${{ matrix.flavor }} build-base-${BASE_TARGET}
 
           trap "docker rm -f base-${BASE_TARGET}-${{ matrix.flavor }}" EXIT
@@ -167,6 +168,9 @@ jobs:
               docker cp base-${BASE_TARGET}-${{ matrix.flavor }}:/var/kernel_version.txt kernel_version.txt && break
               sleep 10
           done
+          echo "KUMAR"
+          echo "cat kernel_version.txt"
+          echo "=============="
       - name: Build image
         env:
           IMAGE_NAME: ghcr.io/nvidia/driver
@@ -174,5 +178,8 @@ jobs:
           PRECOMPILED: "true"
           DIST: signed_ubuntu22.04
         run: |
+          echo "SHIVA"
+          echo "cat kernel_version.txt"
+          echo "=============="
           source kernel_version.txt && \
           make DRIVER_VERSIONS=${DRIVER_VERSIONS} DRIVER_BRANCH=${{ matrix.driver }} build-${DIST}-${DRIVER_VERSION}

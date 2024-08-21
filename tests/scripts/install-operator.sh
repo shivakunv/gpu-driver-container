@@ -5,8 +5,13 @@ if [[ "${SKIP_INSTALL}" == "true" ]]; then
     exit 0
 fi
 
+echo "Checking current kernel version..."
+CURRENT_KERNEL=$(uname -r)
+echo "Current kernel version: $CURRENT_KERNEL"
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source ${SCRIPT_DIR}/.definitions.sh
+
 
 OPERATOR_OPTIONS="${OPERATOR_OPTIONS} --set driver.repository=${PRIVATE_REGISTRY}/nvidia --set driver.version=${TARGET_DRIVER_VERSION}"
 
